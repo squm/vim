@@ -6,6 +6,7 @@ function! FoldtextObjc() " {{{
 	let space = repeat(' ', countspace)
 
 	let line = getline(v:foldstart)
+	let line = substitute(line, "^[[:space:]]*", "", "")
 	let line = space . line
 
 	let width = 80 - len(" 123 lines")
@@ -18,9 +19,10 @@ endfunction " }}}
 function! FoldtextObjcEllipsis() " {{{
 	let countline  = v:foldend + 1 - v:foldstart
 	let countspace = indent(v:foldstart)
-	let space = repeat('_', countspace)
+	let space = repeat(' ', countspace)
 
 	let line = getline(v:foldstart)
+	let line = substitute(line, "^[[:space:]]*", "", "")
 	let line = space . line
 
 	let width = 80 - len("123 lines")
