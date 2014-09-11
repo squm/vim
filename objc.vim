@@ -1,34 +1,27 @@
 setlocal foldtext=FoldtextObjcEllipsis()
 
 function! FoldtextObjc() " {{{
-	let line = getline(v:foldstart)
 	let countline  = v:foldend + 1 - v:foldstart
 	let countspace = indent(v:foldstart)
-
-	if countspace > 1
-		let countspace = countspace - v:foldlevel + 1
-	endif
-
 	let space = repeat(' ', countspace)
 
-	let width = 80 - len("123 lines")
+	let line = getline(v:foldstart)
+	let line = space . line
 
-	let diff = eval(width - countspace)
-	let foldtext = printf("%s%-" . diff . "s%3d lines", space, line, countline)
+	let width = 80 - len(" 123 lines")
+
+	let foldtext = printf("%-" . width . "s %3d lines", line, countline)
 
 	return foldtext
 endfunction " }}}
 
 function! FoldtextObjcEllipsis() " {{{
-	let line = getline(v:foldstart)
 	let countline  = v:foldend + 1 - v:foldstart
 	let countspace = indent(v:foldstart)
+	let space = repeat('_', countspace)
 
-	if countspace > 1
-		let countspace = countspace - v:foldlevel + 1
-	endif
-
-	let space = repeat(' ', countspace)
+	let line = getline(v:foldstart)
+	let line = space . line
 
 	let width = 80 - len("123 lines")
 
@@ -38,8 +31,7 @@ function! FoldtextObjcEllipsis() " {{{
 		let line = line . ellipsis
 	endif
 
-	let diff = eval(width - countspace)
-	let foldtext = printf("%s%-" . diff . "s%3d lines", space, line, countline)
+	let foldtext = printf("%-" . width . "s%3d lines", line, countline)
 
 	return foldtext
 endfunction " }}}
